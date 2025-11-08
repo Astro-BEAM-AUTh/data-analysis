@@ -83,6 +83,7 @@ lint.extend-select = [
 
 lint.ignore = [
     "E501",     # Pycodestyle - line too long
+    "T201",     # Flake8-print - disallows print statements
     "D1",       # Pydocstyle - missing docstring in public module, class, or function
     "D203",     # Pydocstyle - one blank line required before class docstring
     "D212",     # Pydocstyle - summary line should be immediately after the opening quotes.
@@ -94,6 +95,7 @@ lint.ignore = [
     # "W293",     # Pycodestyle - blank line contains whitespace
     "S608",    # Flake8-bandit - Possible SQL injection in f-string
     "TD003",   # Flake8-todos - Missing issue link in TODO comment
+    
     # "FIX002",  # Flake8-fixme - Line contains TODO, consider resolving the issue
 ]
 
