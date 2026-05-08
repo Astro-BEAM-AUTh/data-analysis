@@ -2,20 +2,24 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Κάνουμε import τις συναρτήσεις από τον φάκελο raw_data_pipeline_tools
+# Import functions from folder
 from raw_data_pipeline_tools.data_convert_to_csv import dat_to_csv
 from raw_data_pipeline_tools.average_signal_fftsize import get_avg_signal
 
 def main():
-    # --- Παράμετροι ---
+
+    # If we want to do calibration then set this to True
     calibration = True
+
+    # The fft size defined from the observation
     fft_size = 2048
+
     frequencies = np.linspace(1.4205 - 0.003840/2, 1.4205000 + 0.003840/2, fft_size)
 
     on_observation_filename = '2502202_Hot202020.csv'
     off_observation_filename = "2502202_Cold202020.csv"
 
-    # --- Διαχείριση αρχείων / Μετατροπή ---
+    # Files Management
     if on_observation_filename.endswith(".dat"):
         base_name = on_observation_filename.split('.')[0]
         on_observation_filename = f"{base_name}.csv"
@@ -26,7 +30,7 @@ def main():
         off_observation_filename = f"{base_name}.csv"
         dat_to_csv(f"{base_name}.dat", off_observation_filename)
 
-    # --- Ανάγνωση και επεξεργασία ON signal ---
+    # ON signal proccesing
     on_series_df = pd.read_csv(on_observation_filename)
     on_series_df = on_series_df.filter(regex='power_au|y_axis')
     on_series_np = on_series_df.to_numpy()
@@ -35,7 +39,7 @@ def main():
     if len(on_series_np) > fft_size:
         avg_on = get_avg_signal(on_series_np, fft_size)
 
-    # --- Calibration & Plotting ---
+    # Check for Calibration & Plotting
     if calibration:
         off_series_df = pd.read_csv(off_observation_filename)
         off_series_df = off_series_df.filter(regex='power_au|y_axis')
@@ -70,6 +74,5 @@ def main():
         plt.xlabel('Frequencies')
         plt.show()
 
-# Ελέγχει αν το script τρέχει απευθείας και καλεί την main()
 if __name__ == "__main__":
     main()
