@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def create_preprocessing_plots(on_spectrum_avg : np.array, off_spectrum_avg : np.array, calibrated_signal : np.array, fft_size : int):
+
+def create_preprocessing_plots(on_spectrum_avg: np.array, off_spectrum_avg: np.array, calibrated_signal: np.array, fft_size: int) -> None:
     """
-    Create on_spectrum , off_spectrum , calibrated_spectrum plots in frequencies axes
+    Create on_spectrum , off_spectrum , calibrated_spectrum plots in frequencies axes.
 
     Args:
         on_spectrum_avg (np.array): the on spectrum
@@ -11,10 +12,9 @@ def create_preprocessing_plots(on_spectrum_avg : np.array, off_spectrum_avg : np
         calibrated_signal (np.array): the calibrated spectrum
         fft_size (int): the fft size used in the observation
     """
+    frequencies = np.linspace(1.4205 - 0.003840 / 2, 1.4205000 + 0.003840 / 2, fft_size)
 
-    frequencies = np.linspace(1.4205 - 0.003840/2, 1.4205000 + 0.003840/2, fft_size)
-
-    fig, (ax1, ax2, ax3) = plt.subplots(nrows=3, ncols=1, figsize=(8, 10))
+    _, (ax1, ax2, ax3) = plt.subplots(nrows=3, ncols=1, figsize=(8, 10))
 
     ax1.plot(frequencies, off_spectrum_avg, color="blue")
     ax1.set_title("Avg Cold/Off")
