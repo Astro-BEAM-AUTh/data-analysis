@@ -1,6 +1,6 @@
-from .convert_to_numpy import convert_dat_to_numpy
-from .average_signal_fftsize import get_avg_signal
-from .preprocessing_plots import create_preprocessing_plots
+from raw_data_pipeline_tools.convert_to_numpy import convert_dat_to_numpy
+from raw_data_pipeline_tools.average_signal_fftsize import get_avg_signal
+from raw_data_pipeline_tools.preprocessing_plots import create_preprocessing_plots
 
 def preprocessing_pipeline(on_signal_filename : str , off_signal_filename : str , fft_size : int, calibration_method : str = "on/off", plot_analysis : bool = True ):
     """
@@ -27,7 +27,7 @@ def preprocessing_pipeline(on_signal_filename : str , off_signal_filename : str 
     elif calibration_method == "on-off":
         calibrated_signal = on_spectrum_avg-off_spectrum_avg
     else:
-        raise ValueError("Calibration Method does not exists.")
+        raise ValueError(f"Calibration Method does not exists. : {calibration_method}")
     
     # If we want plots
     if plot_analysis:
